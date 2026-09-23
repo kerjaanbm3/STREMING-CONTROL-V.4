@@ -1,1 +1,100 @@
-/node_modules
+# ==========================================
+# Dependencies
+# ==========================================
+node_modules/
+/.pnp
+.pnp.js
+
+# ==========================================
+# Next.js Build & Cache
+# ==========================================
+.next/
+/out/
+build/
+dist/
+
+# ==========================================
+# TypeScript Cache & Build Info
+# ==========================================
+*.tsbuildinfo
+next-env.d.ts.bak
+
+# ==========================================
+# Environment Variables & Secrets
+# ==========================================
+.env
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ==========================================
+# Database & Prisma (Local SQLite)
+# ==========================================
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+prisma/*.db
+prisma/*.db-journal
+
+# ==========================================
+# Broadcast Runtime Outputs & Temp Files
+# ==========================================
+# OBS text output files generated automatically during broadcast
+live_output_txt/
+temp_*.json
+temp_*/
+
+# ==========================================
+# Logs & Debug
+# ==========================================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ==========================================
+# Operating System Files
+# ==========================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+# ==========================================
+# IDE & Code Editor Files
+# ==========================================
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.sublime-workspace
+*.sublime-project
+
+# ==========================================
+# Deployment
+# ==========================================
+.vercel
