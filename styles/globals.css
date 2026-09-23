@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-main: #09090b;
+  --bg-card: #121215;
+  --bg-elevated: #18181b;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.16);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: #fafafa;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.01em;
+  overflow-x: hidden;
+  user-select: none;
+}
+
+/* Minimalist Clean Card */
+.min-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.75rem;
+  transition: border-color 0.15s ease;
+}
+
+.min-card:hover {
+  border-color: var(--border-hover);
+}
+
+/* Minimalist Interactive Buttons */
+.min-btn {
+  background-color: #18181b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #d4d4d8;
+  border-radius: 0.5rem;
+  transition: all 0.15s ease;
+}
+
+.min-btn:hover {
+  background-color: #27272a;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.min-btn:active {
+  background-color: #141417;
+  transform: scale(0.98);
+}
+
+.min-btn-primary {
+  background-color: #2563eb;
+  border: 1px solid #3b82f6;
+  color: #ffffff;
+  border-radius: 0.5rem;
+  transition: all 0.15s ease;
+}
+
+.min-btn-primary:hover {
+  background-color: #1d4ed8;
+  border-color: #60a5fa;
+}
+
+.min-btn-primary:active {
+  background-color: #1e40af;
+  transform: scale(0.98);
+}
+
+.min-btn-rose {
+  background-color: #e11d48;
+  border: 1px solid #f43f5e;
+  color: #ffffff;
+  border-radius: 0.5rem;
+  transition: all 0.15s ease;
+}
+
+.min-btn-rose:hover {
+  background-color: #be123c;
+  border-color: #fb7185;
+}
+
+.min-btn-rose:active {
+  background-color: #9f1239;
+  transform: scale(0.98);
+}
+
+/* Modern Glass effect */
+.modern-glass {
+  background: rgba(18, 18, 21, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.875rem;
+}
+
+/* Tabular Digital Clock Font */
+.font-digits {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+
+/* Custom Minimal Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}

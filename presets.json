@@ -1,0 +1,63 @@
+[
+  {
+    "id": "preset-elclasico",
+    "name": "Football: Persija vs Persib (El Clasico)",
+    "eventType": "SPORT",
+    "eventName": "INDONESIA PREMIER LEAGUE",
+    "teamA": {
+      "id": "team-persija",
+      "name": "PERSIJA FC",
+      "brandColor": "#ef4444",
+      "logoUrl": "https://api.dicebear.com/7.x/identicon/svg?seed=PERSIJA",
+      "fouls": 0,
+      "timeouts": 0
+    },
+    "teamB": {
+      "id": "team-persib",
+      "name": "PERSIB BANDUNG",
+      "brandColor": "#2563eb",
+      "logoUrl": "https://api.dicebear.com/7.x/identicon/svg?seed=PERSIB",
+      "fouls": 0,
+      "timeouts": 0
+    },
+    "scoreA": 0,
+    "scoreB": 0,
+    "boSeries": 1,
+    "currentPeriod": "Half 1",
+    "timerSeconds": 0
+  },
+  {
+    "id": "preset-mpl-grandfinals",
+    "name": "MOBA: RRQ vs ONIC (Grand Finals BO7)",
+    "eventType": "ESPORT_MOBA",
+    "eventName": "MPL GRAND FINALS SEASON 13",
+    "teamA": {
+      "id": "team-rex",
+      "name": "RRQ HOSHI",
+      "brandColor": "#f59e0b",
+      "logoUrl": "https://api.dicebear.com/7.x/identicon/svg?seed=RRQ"
+    },
+    "teamB": {
+      "id": "team-onic",
+      "name": "ONIC ESPORTS",
+      "brandColor": "#eab308",
+      "logoUrl": "https://api.dicebear.com/7.x/identicon/svg?seed=ONIC"
+    },
+    "scoreA": 0,
+    "scoreB": 0,
+    "boSeries": 7,
+    "currentPeriod": "Game 1",
+    "timerSeconds": 0
+  },
+  {
+    "id": "preset-pubg-finals",
+    "name": "Battle Royale: PMSL Grand Finals",
+    "eventType": "ESPORT_BR",
+    "eventName": "PMSL SEA GRAND FINALS",
+    "scoreA": 0,
+    "scoreB": 0,
+    "boSeries": 1,
+    "currentPeriod": "Match 1 (Erangel)",
+    "timerSeconds": 0
+  }
+]

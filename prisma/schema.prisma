@@ -1,0 +1,170 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Event {
+  id               String           @id @default(uuid())
+  name             String
+  eventType        String           @default("SPORT") // "SPORT", "ESPORT_MOBA", "ESPORT_BR"
+  category         String           @default("SPORT") // "SPORT", "ESPORT", "GENERAL"
+  subType          String           @default("FOOTBALL") // "FOOTBALL", "FUTSAL", "VOLLEYBALL", "BADMINTON", "BASKETBALL", "MLBB", "PUBG_MOBILE", "FREE_FIRE", "VALORANT", "TALKSHOW"
+  bracketFormat    String           @default("SINGLE_ELIMINATION")
+  bracketSize      Int?             @default(8)
+  hasThirdPlace    Boolean?         @default(false)
+  startDate        DateTime         @default(now())
+  endDate          DateTime?
+  location         String?
+  matches          Match[]
+  teams            Team[]           // Added Relation
+  sponsors         Sponsor[]
+  overlayTemplate  OverlayTemplate? @relation(fields: [templateId], references: [id])
+  templateId       String?
+  createdAt        DateTime         @default(now())
+}
+
+model Match {
+  id             String         @id @default(uuid())
+  eventId        String
+  event          Event          @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  teamAId        String?
+  teamA          Team?          @relation("TeamAMatches", fields: [teamAId], references: [id])
+  teamBId        String?
+  teamB          Team?          @relation("TeamBMatches", fields: [teamBId], references: [id])
+  placeholderA   String?        // e.g. "Winner M001"
+  placeholderB   String?        // e.g. "Winner M002"
+  
+  winnerNextId   String?        // id of the next match for the winner
+  loserNextId    String?        // id of the next match for the loser
+  matchCode      String?        // e.g. "M001", "SF1"
+
+  scoreA         Int            @default(0)
+  scoreB         Int            @default(0)
+  boSeries       Int            @default(1) // BO1, BO3, BO5, BO7
+  matchNumber    Int            @default(1)
+  round          String?        // e.g. "Quarter Final", "Semi Final", "Grand Final"
+  scheduledTime  DateTime       @default(now())
+  status         String         @default("UPCOMING") // UPCOMING, LIVE, FINISHED
+  timerSeconds   Int            @default(0)
+  isTimerRunning Boolean        @default(false)
+  currentPeriod  String?        // "Half 1", "Game 2", "Extra Time"
+  pickBans       PickBanState[]
+  brStandings    BRStanding[]
+  createdAt      DateTime       @default(now())
+}
+
+model Team {
+  id          String       @id @default(uuid())
+  name        String
+  institution String?      // School/Club origin
+  logoUrl     String?      // Local file path in appData/uploads
+  brandColor  String?      // Hex code (#FF0000)
+  eventId     String?
+  event       Event?       @relation(fields: [eventId], references: [id])
+  players     Player[]
+  matchesAsA  Match[]      @relation("TeamAMatches")
+  matchesAsB  Match[]      @relation("TeamBMatches")
+  brStandings BRStanding[]
+}
+
+model Player {
+  id           String         @id @default(uuid())
+  teamId       String
+  team         Team           @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  name         String
+  inGameName   String?        // IGN for Esports
+  role         String?        // Midlaner, Striker, Coach, etc.
+  positionType String         @default("PLAYER") // "PLAYER", "CAPTAIN", "COACH"
+  jerseyNumber Int?
+  photoProfile String?        // Profile / Pose 1
+  photoPose2   String?        // Action Pose 2
+  photoPose3   String?        // Action Pose 3
+  pickBans     PickBanState[]
+}
+
+model Hero {
+  id        String         @id @default(uuid())
+  name      String
+  role      String         // Assassin, Tank, Mage, etc.
+  avatarUrl String
+  pickBans  PickBanState[]
+}
+
+model Role {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  imageUrl  String?
+  createdAt DateTime @default(now())
+}
+
+model PickBanState {
+  id        String   @id @default(uuid())
+  matchId   String
+  match     Match    @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  teamType  String   // "TEAM_A" | "TEAM_B"
+  action    String   // "PICK" | "BAN"
+  slotOrder Int      // Slot order 1 - 10
+  heroId    String?
+  hero      Hero?    @relation(fields: [heroId], references: [id])
+  playerId  String?
+  player    Player?  @relation(fields: [playerId], references: [id])
+  isLocked  Boolean  @default(false)
+}
+
+model BRStanding {
+  id            String @id @default(uuid())
+  matchId       String
+  match         Match  @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  teamId        String
+  team          Team   @relation(fields: [teamId], references: [id])
+  placementRank Int    @default(0)
+  killPoints    Int    @default(0)
+  totalPoints   Int    @default(0)
+}
+
+model Sponsor {
+  id           String @id @default(uuid())
+  eventId      String
+  event        Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  name         String
+  logoUrl      String
+  displayOrder Int    @default(0)
+}
+
+model OverlayTemplate {
+  id             String  @id @default(uuid())
+  name           String
+  primaryColor   String  @default("#000000")
+  secondaryColor String  @default("#FFFFFF")
+  accentColor    String  @default("#FF0000")
+  fontFamily     String  @default("Montserrat")
+  customCss      String?
+  events         Event[]
+}
+
+model HotkeyConfig {
+  id          String @id @default(uuid())
+  actionName  String @unique // e.g. "SCORE_A_PLUS", "TIMER_TOGGLE"
+  keyCode     String // e.g. "Numpad7", "Space", "Gamepad_Button0"
+  description String
+  category    String @default("GENERAL") // "GENERAL", "CONTROLLER", etc.
+}
+
+model Overlay {
+  id               String   @id @default(uuid())
+  title            String
+  category         String   @default("HUD") 
+  categoryLabel    String
+  description      String
+  path             String
+  resolution       String
+  badgeColor       String
+  icon             String   @default("Monitor")
+  testAlertPayload String?  
+  createdAt        DateTime @default(now())
+}
+
